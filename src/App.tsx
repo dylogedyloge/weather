@@ -51,7 +51,7 @@ const App: React.FC = () => {
 
   const handleWeatherUpdate = (summary: any) => {
     setWeatherSummary(summary);
-    setShowWeatherApp(false);
+    // setShowWeatherApp(false);
   };
 
   return (
