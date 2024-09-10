@@ -15,6 +15,7 @@ jobs:
           node-version: "16" # Update to Node.js 16
       - name: Clean install dependencies
         run: |
+          npm --version
           node --version
           npm ci --legacy-peer-deps
       - name: Build
