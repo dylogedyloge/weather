@@ -23,7 +23,7 @@ jobs:
           npm install --legacy-peer-deps
 
       - name: Set up Firebase credentials
-        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > $HOME/firebase-key.json
+        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" | base64 --decode > $HOME/firebase-key.json
 
       - name: Deploy to Firebase
         env:
