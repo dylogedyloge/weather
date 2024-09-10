@@ -22,8 +22,11 @@ jobs:
         run: |
           npm install --legacy-peer-deps
 
+      - name: Set up Firebase credentials
+        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > $HOME/firebase-key.json
+
       - name: Deploy to Firebase
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }} # Use the secret for authentication
+          GOOGLE_APPLICATION_CREDENTIALS: $HOME/firebase-key.json # Use the service account key
         run: |
-          npx firebase-tools@latest deploy --only hosting --project weather-c8045 --token $FIREBASE_TOKEN --json
+          npx firebase-tools@latest deploy --only hosting --project weather-c8045 --json
