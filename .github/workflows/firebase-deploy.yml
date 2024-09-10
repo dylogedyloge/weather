@@ -1,4 +1,4 @@
-name: Deploy to Firebase
+name: Firebase Deploy
 
 on:
   push:
@@ -6,23 +6,24 @@ on:
       - main
 
 jobs:
-  build_and_deploy:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: "18" # Update to Node.js 16
-      - name: Clean install dependencies
+          node-version: "18" # Updated to Node.js 18
+
+      - name: Install dependencies
         run: |
-          npm --version
-          node --version
           npm install --legacy-peer-deps
-      - name: Build
-        run: npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_TOKEN }}"
-          channelId: live
-          projectId: weather-c8045
+
+      - name: Deploy to Firebase
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }} # Use the secret for authentication
+        run: |
+          npx firebase-tools@latest deploy --only hosting --project weather-c8045 --token $FIREBASE_TOKEN --json
