@@ -27,4 +27,4 @@ jobs:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_TOKEN }}"
           channelId: live
-          projectId: react-weather-app-115-2ddd0
+          projectId: weather-c8045
